@@ -17,24 +17,24 @@
             <tr>
                 <td>acceleration</td>
                 <td id="moAccel"></td>
-            </tr>
-            <tr>
-                <td>accelerationIncludingGravity</td>
-                <td id="moAccelGrav"></td>
-            </tr>
-            <tr>
-                <td>rotationRate</td>
-                <td id="moRotation"></td>
-            </tr>
-            <tr>
-                <td>interval</td>
-                <td id="moInterval"></td>
-            </tr>
+                </t>r
+                <tr>
+                    <td>accelerationIncludingGravity</td>
+                    <td id="moAccelGrav"></td>
+                </tr>
+                <tr>
+                    <td>rotationRate</td>
+                    <td id="moRotation"></td>
+                </tr>
+                <tr>
+                    <td>interval</td>
+                    <td id="moInterval"></td>
+                </tr>
         </table>
+        <div id="distance"></div>
+        <button onclick="resetDistance()">Reset</button>
     </main>
     <script type="text/javascript">
-    var distanceNode = document.getElementById("distance");
-
     if (window.DeviceMotionEvent) {
         //alert("hello");
         window.addEventListener('devicemotion', function(event) {
@@ -47,27 +47,39 @@
             info = info.replace("Z", acceleration.z);
             document.getElementById("moAccel").innerHTML = info;
 
-            // Grab the acceleration including gravity from the results
-            acceleration = event.accelerationIncludingGravity;
-            info = xyz.replace("X", acceleration.x);
-            info = info.replace("Y", acceleration.y);
-            info = info.replace("Z", acceleration.z);
-            document.getElementById("moAccelGrav").innerHTML = info;
 
-            // Grab the rotation rate from the results
-            var rotation = event.rotationRate;
-            info = xyz.replace("X", rotation.alpha);
-            info = info.replace("Y", rotation.beta);
-            info = info.replace("Z", rotation.gamma);
-            document.getElementById("moRotation").innerHTML = info;
+            updateDistance(event.acceleration.z, new Date())
 
-            // // Grab the refresh interval from the results
-            info = event.interval;
-            document.getElementById("moInterval").innerHTML = info;
         });
     } else {
         distanceNode.innerHTML = "DeviceMotionEvent supported"
     }
+
+    var distanceNode = document.getElementById("distance");
+    var distance = 0;
+    var prevTimeStamp = 0;
+    var prevVelocity = 0;
+
+    function renderDistance(distance) {
+        distanceNode.innerHTML = distance + " meter";
+    }
+
+    function updateDistance(acceleration, timeStamp) {
+        var interval = (timeStamp - prevTimeStamp) / 1000;
+        var velocity = (acceleration * interval) + prevVelocity;
+        distance += velocity * interval;
+        renderDistance(distance);
+        prevTimeStamp = timeStamp;
+        prevVelocity = velocity;
+    }
+
+    function resetDistance() {
+        distance = 0;
+        prevTimeStamp = 0;
+        prevVelocity = 0;
+        renderDistance(distance);
+    }
+    resetDistance();
     </script>
 </body>
 
