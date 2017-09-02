@@ -57,7 +57,7 @@
 
     var distanceNode = document.getElementById("distance");
     var distance = 0;
-    var prevTimeStamp = 0;
+    var prevTimeStamp = new Date();
     var prevVelocity = 0;
 
     function renderDistance(distance) {
@@ -75,7 +75,7 @@
 
     function resetDistance() {
         distance = 0;
-        prevTimeStamp = 0;
+        prevTimeStamp = new Date();
         prevVelocity = 0;
         renderDistance(distance);
     }
