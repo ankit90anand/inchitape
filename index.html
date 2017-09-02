@@ -14,10 +14,10 @@
     var distanceNode = document.getElementById("distance");
 
     if (window.DeviceMotionEvent) {
-        alert("hello");
+        //alert("hello");
         window.addEventListener('devicemotion', function(event) {
-            //distanceNode.innerHTML = (event.acceleration.x + ' m/s2');
-            alert(event);
+            distanceNode.innerHTML = (event.acceleration.x + ' m/s2');
+            //alert(event);
         });
     } else {
         distanceNode.innerHTML = "DeviceMotionEvent supported"
