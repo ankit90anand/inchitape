@@ -65,12 +65,14 @@
     }
 
     function updateDistance(acceleration, timeStamp) {
-        var interval = (timeStamp - prevTimeStamp) / 1000;
-        var velocity = (acceleration * interval) + prevVelocity;
-        distance += velocity * interval;
-        renderDistance(distance);
-        prevTimeStamp = timeStamp;
-        prevVelocity = velocity;
+        if(acceleration>0){
+            var interval = (timeStamp - prevTimeStamp) / 1000;
+            var velocity = (acceleration * interval) + prevVelocity;
+            distance += velocity * interval;
+            renderDistance(distance);
+            prevTimeStamp = timeStamp;
+            prevVelocity = velocity;
+        }        
     }
 
     function resetDistance() {
