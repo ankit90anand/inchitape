@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Measuring inchi tape</title>
+</head>
+
+<body>
+    <main>
+        <div id="distance">
+        </div>
+    </main>
+    <script type="text/javascript">
+    var distanceNode = document.getElementById("distance");
+
+    if (window.DeviceMotionEvent) {
+        alert("hello");
+        window.addEventListener('devicemotion', function(event) {
+            //distanceNode.innerHTML = (event.acceleration.x + ' m/s2');
+            alert(event);
+        });
+    } else {
+        distanceNode.innerHTML = "DeviceMotionEvent supported"
+    }
+    </script>
+</body>
+
+</html>
