@@ -47,8 +47,10 @@
             info = info.replace("Z", acceleration.z);
             document.getElementById("moAccel").innerHTML = info;
 
-
-            updateDistance(event.acceleration.z, new Date())
+            if(accleration.z>1 && accleration.x<1 && accerlation.y<1){
+                updateDistance(event.acceleration.z, new Date())
+            } 
+            
 
         });
     } else {
