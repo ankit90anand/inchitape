@@ -37,6 +37,7 @@
     <script type="text/javascript">
     if (window.DeviceMotionEvent) {
         //alert("hello");
+        var maxZ=0;
         window.addEventListener('devicemotion', function(event) {
             var info, xyz = "[X, Y, Z]";
 
@@ -44,11 +45,11 @@
             var acceleration = event.acceleration;
             info = xyz.replace("X", acceleration.x);
             info = info.replace("Y", acceleration.y);
-            info = info.replace("Z", acceleration.z);
+            info = info.replace("Z", maxZ = Math.max(maxZ,acceleration.z));
             document.getElementById("moAccel").innerHTML = info;
 
             if(accleration.z>1 && accleration.x<1 && accerlation.y<1){
-                updateDistance(event.acceleration.z, new Date())
+                //updateDistance(event.acceleration.z, new Date())
             } 
             
 
